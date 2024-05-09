@@ -7,7 +7,7 @@
 
 # Features of the client:
  ## Design:
- Connections are handled by instances of the class ClientApplication. The whole connection lifecycle, from starting up the Windows Socket API to creating a socket to closing the socket and cleaning up WSA is handled by the instance. The constructor starts up WSA, creates a socket and tries to connect to the server. The Destructor closes the connection. The connection can also be closed in case errors are encountered using the member function cleanupAndClose(). Currently, ClientApplication is not a singleton class, and there may be merit in making it a singleton class.
+ Connections are handled by instances of the class ClientApplication. The whole connection lifecycle, from starting up the Windows Socket API to creating a socket to closing the socket and cleaning up WSA is handled by the instance. The constructor starts up WSA, creates a socket and tries to connect to the server. The Destructor closes the connection and calls WSACleanup(). The connection can also be closed in case errors are encountered using the member function cleanupAndClose(). Currently, ClientApplication is not a singleton class, and there may be merit in making it a singleton class.
  
  ## Algorithm:
  Inside main(), we do the following:
