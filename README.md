@@ -15,7 +15,7 @@
  2. Inside sendAllPacketsRequest(), we expect packets to arrive in order, starting with sequence number 1. In case one or more packets are missing, we push the missing sequence numbers onto a stack.
  3. In a second loop, we create a new instance of ClientApplication and call sendSpecificPacketRequests() till the stack of missing sequence numbers is empty. The same timeout of 5 seconds in case of an inactive connection applies.
  4. After we have all the packets, we sort the tick_vector (which has been storing all the packet information) such that the first element (index 0) corresponds to sequence number 1.
- 5. Finally, we call the JSON writer function writeJSON() to generate a JSON file containing the market data we have received.
+ 5. Finally, we call the JSON writer function writeJSON() to generate a JSON file called "tick_data.JSON" in thesame folder as the executable containing the market data we have received.
 
  ## Points to note:
   1. If the connection drops, or some other error is encountered while receiving data, we close the socket, clean up WSA, and request a new connection.
