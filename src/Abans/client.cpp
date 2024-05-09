@@ -450,7 +450,7 @@ namespace client
         }
         else
         {
-            std::cout<<"Unable to open log for writing, proceedign without logging..."<<std::endl;
+            std::cout<<"Unable to open log for writing, proceeding without logging..."<<std::endl;
         }
 
         fout.close();
