@@ -328,26 +328,33 @@ namespace client
 
             void sendSpecificPacketRequests()
             {
-                int n = client::missed_packets.top();
+                if(client::missed_packets.empty())
+                {
+                    std::cout<<"No more missing packets"<<std::endl;
+                    log<<"INFO: No more missing packets"<<std::endl;
+                    cleanupAndClose();
+                    return;
+                }
                 if(!WSAstartup_successful || !connection_successful)
                 {
                     return;
                 }
+
                 //Preparing payload    
                 payload[0] = 2;
-                payload[1] = n;
+                payload[1] = client::missed_packets.top();
 
                 //Sending request to ABX server
                 int send_return = send(ABX_socket, (char*)payload, request_buffer_size, 0);
                 if(send_return == SOCKET_ERROR)
                 {
                     //std::cout<<"Sending request for packet "<<n<<" failed"<<std::endl;
-                    log<<"ERROR13: Sending request for packet "<<n<<" failed"<<std::endl;
+                    log<<"ERROR13: Sending request for packet "<<client::missed_packets.top()<<" failed"<<std::endl;
                     cleanupAndClose();
                     return;
                 }
                 //std::cout<<"Sending request for packet "<<n<<" successful"<<std::endl;
-                log<<"INFO: Sending request for packet "<<n<<" successful"<<std::endl;
+                log<<"INFO: Sending request for packet "<<client::missed_packets.top()<<" successful"<<std::endl;
 
                 unsigned char ABX_buffer[received_buffer_size];
                 int ABX_buffer_size = recv(ABX_socket, (char*)ABX_buffer, received_buffer_size, 0);
