@@ -9,7 +9,7 @@
  ## Design:
  Connections are handled by instances of the class ClientApplication. The whole connection lifecycle, from starting up the Windows Socket API to creating a socket to closing the socket and cleaning up WSA is handled by the instance. The constructor starts up WSA, creates a socket and tries to connect to the server. The Destructor closes the connection. The connection can also be closed in case errors are encountered using the member function cleanupAndClose(). Currently, ClientApplication is not a singleton class, and there may be merit in making it a singleton class.
  
- ##Algorithm:
+ ## Algorithm:
  Inside main(), we do the following:
  1. Create an instance of ClientApplication and call member function sendAllPacketsRequest() in a loop till at least one packet is received from the server. In case the server is not running, there is a 5 second wait before trying to connect again. This can be made incremental (upto a certain limit) if required.
  2. Inside sendAllPacketsRequest(), we expect packets to arrive in order, starting with sequence number 1. In case one or more packets are missing, we push the missing sequence numbers onto a stack.
