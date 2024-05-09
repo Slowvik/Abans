@@ -6,4 +6,4 @@
  gcc client.cpp -lw2_32 -o client
 
 # Features of the client:
- > Design: 
+ # Design: 
