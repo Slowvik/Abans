@@ -133,7 +133,7 @@ namespace client
         public:
             ClientApplication()
             {
-                //static_assert(packet_size_default == 17);
+                static_assert(packet_size_default == 17);
                 static_assert(received_buffer_size >= 17);
                 static_assert(request_buffer_size >= 2);
                 seq_num = 1;
