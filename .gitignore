@@ -1,0 +1,3 @@
+*.exe
+*client_log.txt
+*.json

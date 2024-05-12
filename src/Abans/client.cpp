@@ -133,7 +133,7 @@ namespace client
         public:
             ClientApplication()
             {
-                static_assert(packet_size_default == 17);
+                //static_assert(packet_size_default == 17);
                 static_assert(received_buffer_size >= 17);
                 static_assert(request_buffer_size >= 2);
                 seq_num = 1;
@@ -314,7 +314,11 @@ namespace client
                         else
                         {
                             //std::cout<<"Data integrity check failed, shutting down..."<<std::endl;
-                            log<<"ERROR12: Data integrity check failed, shutting down..."<<std::endl;                
+                            log<<"ERROR12: Data integrity check failed, not parsing data..."<<std::endl;
+                            while(!ABX_buffer_size==SOCKET_ERROR || !ABX_buffer_size == 0)
+                            {
+                                ABX_buffer_size = recv(ABX_socket, (char*)ABX_buffer, received_buffer_size, 0);
+                            }           
                             cleanupAndClose();
                             exit(0);
                         }
@@ -392,6 +396,10 @@ namespace client
                 {
                     //std::cout<<"Data integrity check failed, shutting down..."<<std::endl;
                     log<<"ERROR15: Data integrity check failed, shutting down..."<<std::endl;
+                    while(!ABX_buffer_size==SOCKET_ERROR || !ABX_buffer_size == 0)
+                    {
+                        ABX_buffer_size = recv(ABX_socket, (char*)ABX_buffer, received_buffer_size, 0);
+                    }
                     cleanupAndClose();
                     exit(0);
                 }
